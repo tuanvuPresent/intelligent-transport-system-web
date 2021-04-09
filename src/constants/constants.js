@@ -17,6 +17,13 @@ export const VEHICLE_TYPE = [
     }
 ]
 
+export const VEHICLE_MESSAGE  = {
+    'CREATE_SUCCESS' : 'Thêm mới phương tiện thành công',
+    'UPDATE_SUCCESS' : 'Cập nhật phương tiện thành công',
+    'DELETE_SUCCESS' : 'Xóa phương tiện thành công',
+}
+
 export default {
     VEHICLE_TYPE,
+    VEHICLE_MESSAGE,
 }
