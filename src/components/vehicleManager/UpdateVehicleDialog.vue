@@ -117,7 +117,6 @@ export default {
                     Vue.$toast.success(constants.VEHICLE_MESSAGE.UPDATE_SUCCESS)
                     this.getVehicleList()
                     this.closeDialog()
-                    this.paramVehicleUpdate  = {}
                 } else {
                     Vue.$toast.error(error + '')
                 }

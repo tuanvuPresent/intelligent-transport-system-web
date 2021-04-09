@@ -74,6 +74,15 @@ export default {
                         return response.data.status ? resolve() : resolve(response.data.message.vi)
                     })
             });
+        },
+        deleteVehicle ({commit}, id) {
+            commit('noAction')
+            return new Promise(function (resolve) {
+                customAxios.delete('api/v1/vehicles/' + id + '/')
+                    .then(response => {
+                        return response.data.status ? resolve() : resolve(response.data.message.vi)
+                    })
+            });
         }
     },
     modules: {}

@@ -17,7 +17,7 @@
               <v-col>
                 <v-icon @click="openUpdateDialog(item)">mdi-pencil</v-icon>
                 <v-divider vertical style="color: #ff1744"></v-divider>
-                <v-icon color="error" @click="openDeleteVehicleDialog(item)">mdi-delete</v-icon>
+                <v-icon color="error" @click="openDeleteDialog(item)">mdi-delete</v-icon>
               </v-col>
             </v-row>
           </template>
@@ -26,6 +26,11 @@
     </v-card>
     <CreateVehicleDialog/>
     <UpdateVehicleDialog/>
+    <DeleteConfirmDialog
+        :dialog="deleteVehicleDialog"
+        :deleteInstance="submitDelete"
+        :closeDialog="closeDeleteVehicleDialog"
+    />
   </div>
 </template>
 
@@ -34,28 +39,50 @@ import {mapGetters, mapActions} from 'vuex'
 import constants from '../../constants/constants'
 import CreateVehicleDialog from './CreateVehicleDialog'
 import UpdateVehicleDialog from './UpdateVehicleDialog'
+import DeleteConfirmDialog from '../dialog/DeleteConfirmDialog'
+import Vue from 'vue'
 
 export default {
     computed:{
-        ...mapGetters('vehicle',['vehicleList','headersVehicle'])
+        ...mapGetters('vehicle',['vehicleList','headersVehicle']),
+        ...mapGetters('display',['deleteVehicleDialog']),
     },
     methods:{
-        ...mapActions('vehicle', ['getVehicleList', 'retrieveVehicle']),
-        ...mapActions('display', ['openCreateVehicleDialog','openUpdateVehicleDialog']),
+        ...mapActions('vehicle', ['getVehicleList', 'retrieveVehicle', 'deleteVehicle']),
+        ...mapActions('display', ['openCreateVehicleDialog','openUpdateVehicleDialog','openDeleteVehicleDialog','closeDeleteVehicleDialog']),
         openUpdateDialog(item){
             this.retrieveVehicle(item.id)
             this.openUpdateVehicleDialog()
+        },
+        openDeleteDialog(item){
+            this.deletedId = item.id
+            this.openDeleteVehicleDialog()
+        },
+        async submitDelete(){
+            const isvalid = await this.$validator.validateAll()
+            if(isvalid){
+                const error = await this.deleteVehicle(this.deletedId)
+                if (!error) {
+                    Vue.$toast.success(constants.VEHICLE_MESSAGE.DELETE_SUCCESS)
+                    this.getVehicleList()
+                    this.closeDeleteVehicleDialog()
+                } else {
+                    Vue.$toast.error(error + '')
+                }
+            }
         }
     },
     data: () => ({
       vehicleType: constants.VEHICLE_TYPE,
+      deletedId:''
     }),
     mounted() {
         this.getVehicleList()
     },
     components:{
         CreateVehicleDialog,
-        UpdateVehicleDialog
+        UpdateVehicleDialog,
+        DeleteConfirmDialog,
     }
 }
 </script>
