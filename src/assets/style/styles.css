@@ -1,0 +1,23 @@
+.custom-table .v-data-table__wrapper {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.custom-table tr > th {
+    color: rgb(0 0 0) !important;
+    background: #d7e6fd !important;
+    border: 1px solid #ffffff !important;
+}
+
+.custom-table tr > td {
+    color: rgb(0 0 0) !important;
+    max-width: 200px;
+}
+
+.custom-table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.custom-table tr:hover {
+    background: #f2f8fa !important;
+}

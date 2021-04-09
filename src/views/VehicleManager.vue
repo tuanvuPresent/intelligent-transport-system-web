@@ -1,14 +1,16 @@
 <template>
   <div>
-    <v-card>
-      Quản lý phương tiện
-    </v-card>
+    <VehicleList/>
   </div>
 </template>
 
 <script>
-
-export default {}
+import VehicleList from '../components/vehicleManager/VehicleList'
+export default {
+    components:{
+        VehicleList
+    }
+}
 </script>
 
 <style scoped>

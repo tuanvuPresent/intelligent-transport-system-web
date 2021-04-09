@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import test from './test'
+import vehicle from './vehicle'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
-        test,
+        vehicle,
     }
 })
