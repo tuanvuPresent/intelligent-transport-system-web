@@ -51,7 +51,7 @@ export default createComponent({
         title: 'Quản lý phương tiện', icon: 'mdi-home', to: '/vehicle',
       },
       {
-        title: 'Map', icon: 'mdi-map-marker', to: '/tracking-vehicle-map',
+        title: 'Bản đồ', icon: 'mdi-map-marker', to: '/tracking-vehicle-map',
       },
     ]
     return {
