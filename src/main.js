@@ -12,7 +12,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import 'vue-toast-notification/dist/theme-sugar.css';
 import '@/assets/style/styles.css';
-
+import * as VueGoogleMaps from 'vue2-google-maps';
+ 
 Vue.use(VeeValidate, validation);
 Vue.use(Loading);
 Vue.component('loading', Loading)
@@ -20,6 +21,12 @@ Vue.use(VueToast, {position: 'top-right'});
 Vue.use(VueCookies)
 Vue.config.productionTip = false
 Vue.use(VueCompositionApi)
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyA5dAXfY4MQxYieugCwkK3tVURoQdz-VuA',
+    libraries: 'places'
+  }}
+)
 
 new Vue({
     vuetify,
