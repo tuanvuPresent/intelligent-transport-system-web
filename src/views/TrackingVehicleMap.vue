@@ -21,14 +21,14 @@
           </v-col>
             
             <v-col class="pa-0">
-                <v-card>
-                    <v-card-text v-if="info">
+                <v-card  v-if="info">
+                    <v-card-text>
                         <div><b>Loại phương tiện:</b> {{ vehicleType[info.vehicle_type].text }}</div>
                         <div><b>Thương hiệu xe:</b> {{ info.brand }}</div>
                         <div><b>Tên xe:</b> {{ info.name }}</div>
                         <div><b>Chủ sở hữu:</b> {{ info.owner }}</div>
                         <div><b>Biển số xe:</b> {{ info.license_plate }}</div>
-                        <div><b>Vị trí:</b> ({{ info.position.lat }}, {{ info.position.lng }})</div>
+                        <div><b>Vị trí:</b> ( latitude: {{ info.position.lat }}, longitude : {{ info.position.lng }})</div>
                         <div><b>Tốc độ hiện tại:</b> {{ info.speed }}</div>
                     </v-card-text>
                 </v-card>
