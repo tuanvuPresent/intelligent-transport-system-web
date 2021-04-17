@@ -6,11 +6,11 @@
                 <gmap-map
                 :center="center"
                 :zoom="12"
-                style="width:100%;  height: 400px;margin:auto;padding:0px"
+                style="width:100%;  height: 85vh;margin:auto;padding:0px"
                 >
                 <gmap-marker
                     :key="index"
-                    v-for="(m, index) in markers"
+                    v-for="(m, index) in vehicleLocaltionList"
                     :position="m.position"
                     @click="clickItem(m)"
                     :clickable="true"
@@ -20,10 +20,16 @@
             </v-card>
           </v-col>
             
-            <v-col>
+            <v-col class="pa-0">
                 <v-card>
-                    <v-card-text>
-                        <p>{{info}}</p>
+                    <v-card-text v-if="info">
+                        <div><b>Loại phương tiện:</b> {{ vehicleType[info.vehicle_type].text }}</div>
+                        <div><b>Thương hiệu xe:</b> {{ info.brand }}</div>
+                        <div><b>Tên xe:</b> {{ info.name }}</div>
+                        <div><b>Chủ sở hữu:</b> {{ info.owner }}</div>
+                        <div><b>Biển số xe:</b> {{ info.license_plate }}</div>
+                        <div><b>Vị trí:</b> ({{ info.position.lat }}, {{ info.position.lng }})</div>
+                        <div><b>Tốc độ hiện tại:</b> {{ info.speed }}</div>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -32,43 +38,29 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+import constants from '../constants/constants'
 export default {
     methods:{
+        ...mapActions('trackingVehicle', ['getVehicleLocaltionList']),
         clickItem(item){
             this.info = item
         }
     },
+    computed:{
+        ...mapGetters('trackingVehicle', ['vehicleLocaltionList'])
+    },
+    mounted() {
+        this.getVehicleLocaltionList()
+    },
     data() {
         return {
             info:'',
-            markerOptions: {
-            url: require('../assets/logo.png'),
-            size: {width: 20, height: 20, f: 'px', b: 'px',},
-            scaledSize: {width: 20, height: 20, f: 'px', b: 'px',},
-            },
             center:{
-                    lat: 21.0277644,
-                    lng: 105.8341598
-                },
-            markers:[ {
-                title: 'Xe 1',
-                position:{
-                    title: "Ha Noi\n Viet Nam",
-                    lat: 21.0277644,
-                    lng: 105.8341598
-                    },
-                },
-                {
-                title: 'Xe 2',
-                position:{
-                    title: "Ha Noi\n Viet Nam",
-                    lat: 21.0277644,
-                    lng: 105.2341598
-                    },
-                }],
-            latitude: 21.0277644,
-            longitude: 105.8341598,
-            apiKey:  process.env.VUE_APP_GOOGLE_API_KEY,
+                lat: 21.0277644,
+                lng: 105.8341598
+            },
+            vehicleType: constants.VEHICLE_TYPE,
     };
   }
 };

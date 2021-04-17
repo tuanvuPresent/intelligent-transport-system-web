@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 Vue.use(VueCompositionApi)
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyA5dAXfY4MQxYieugCwkK3tVURoQdz-VuA',
+    key: process.env.VUE_APP_GOOGLE_API_KEY,
     libraries: 'places'
   }}
 )
