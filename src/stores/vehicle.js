@@ -15,6 +15,7 @@ export default {
             {text: 'Màu sắc', value: 'color'},
             {text: 'Biển số xe', value: 'license_plate'},
             {text: 'Mô tả', value: 'description'},
+            {text: 'Chủ sở hữu', value: 'owner.name'},
             {text: 'Thao tác', value: 'action'},
         ],
         paramVehicleUpdate :{}
@@ -42,9 +43,9 @@ export default {
         },
     },
     actions: {
-        getVehicleList ({commit}) {
+        getVehicleList ({commit}, params) {
             customAxios
-                .get('api/v1/vehicles/')
+                .get('api/v1/vehicles/',{params: params})
                 .then(response => {
                     commit('setVehicleList', response.data.data)      
                 })
@@ -67,6 +68,8 @@ export default {
         },
         updateVehicle ({commit}, data) {
             const id = data.id
+            const owner = data.owner.name
+            data.owner_name = owner
             commit('noAction')
             return new Promise(function (resolve) {
                 customAxios.put('api/v1/vehicles/' + id + '/', data)

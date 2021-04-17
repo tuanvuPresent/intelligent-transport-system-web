@@ -60,6 +60,15 @@
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('license_plate')"
                         ></v-text-field>
+
+                         <v-text-field
+                            v-model="paramVehicleUpdate.owner.name"
+                            label="Chủ sở hũu"
+                            outlined
+                            name="owner_name"
+                            v-validate="{ required: 'required'}"
+                            :error-messages="errors.collect('owner_name')"
+                        ></v-text-field>
                     </v-col>
                 </v-row>
                 <v-textarea label="Mô tả"
