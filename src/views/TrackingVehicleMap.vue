@@ -29,7 +29,7 @@
                         <div><b>Chủ sở hữu:</b> {{ info.owner?info.owner.name:"" }}</div>
                         <div><b>Biển số xe:</b> {{ info.license_plate }}</div>
                         <div><b>Vị trí:</b> ( latitude: {{ info.position.lat }}, longitude : {{ info.position.lng }})</div>
-                        <div><b>Tốc độ hiện tại:</b> {{ info.speed }}</div>
+                        <div><b>Tốc độ hiện tại:</b> {{ info.speed }} ( km/h )</div>
                     </v-card-text>
                 </v-card>
             </v-col>
