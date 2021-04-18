@@ -20,9 +20,9 @@ export default {
         }
     },
     actions: {
-        getVehicleLocaltionList ({commit}) {
+        getVehicleLocaltionList ({commit}, loading=true) {
             customAxios
-                .get('api/v1/vehicles-localtion/')
+                .get('api/v1/vehicles-localtion/', {}, loading)
                 .then(response => {
                     commit('setVehicleLocaltionList', response.data.data)      
                 })

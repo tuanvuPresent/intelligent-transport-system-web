@@ -54,12 +54,17 @@ export const customAxios = {
             }
         )
     },
-    get: (url, config) => {
+    get: (url, config, loading=true) => {
         return new Promise(function (resolve) {
-            let loader = Vue.$loading.show({opacity: 0})
+            let loader = null
+            if (loading){
+                loader = Vue.$loading.show({opacity: 0})
+            }
             axiosinstance.get(url, config)
                 .then((r) => {
-                    loader.hide()
+                    if(loading){
+                        loader.hide()
+                    }
                     return resolve(r)
                 })
         })

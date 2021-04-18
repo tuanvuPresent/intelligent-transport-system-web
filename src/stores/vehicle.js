@@ -18,7 +18,7 @@ export default {
             {text: 'Chủ sở hữu', value: 'owner.name'},
             {text: 'Thao tác', value: 'action'},
         ],
-        paramVehicleUpdate :{}
+        paramVehicleUpdate :{owner:{name:''}}
     },
     getters: {
         vehicleList: state => {

@@ -9,12 +9,14 @@
                         label="Loại phương tiện"
                         v-model="paramSearchVehicle.vehicle_type"
                         outlined
+                        dense
                     ></v-select>
 
                     <v-text-field
                         v-model="paramSearchVehicle.brand"
                         label="Thương hiệu"
                         outlined
+                        dense
                     ></v-text-field>
                 </v-col>
 
@@ -23,12 +25,14 @@
                         v-model="paramSearchVehicle.name"
                         label="Tên xe"
                         outlined
+                        dense
                     ></v-text-field>
 
                     <v-text-field
                         v-model="paramSearchVehicle.license_plate"
                         label="Biển số xe"
                         outlined
+                        dense
                     ></v-text-field>
                 </v-col>
 
