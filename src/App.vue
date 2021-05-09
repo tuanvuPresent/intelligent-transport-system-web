@@ -3,12 +3,18 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
+    computed:{
+        ...mapGetters('trackingVehicle', ['vehicleLocaltionParams'])
+    },
     methods:{
         ...mapActions('trackingVehicle', ['getVehicleLocaltionList']),
         getVehicleLocaltionInterval(){
-            this.getVehicleLocaltionList(false)
+            this.getVehicleLocaltionList({
+                params : this.vehicleLocaltionParams,
+                loading : false
+            })
         }
     },
     mounted() {
