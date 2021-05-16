@@ -12,33 +12,39 @@
           <span class="headline">Thêm phương tiện mới</span>
         </v-card-title>
         <v-divider></v-divider>
-        <v-card-text style="padding: 30px">
+        <v-card-text class="black--text pa-4">
             <v-form ref="form">
                 <v-row>
                     <v-col>
+                        <b>Loại phương  tiện<span class="error--text"> *</span></b>
                         <v-select
                             :items="vehicleType"
-                            label="Loại phương tiện"
+                            placeholder="Loại phương tiện"
                             v-model="paramVehiclePost.vehicle_type"
                             outlined
+                            dense
                             name="vehicle_type"
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('vehicle_type')"
                         ></v-select>
 
+                        <b>Thương hiệu<span class="error--text"> *</span></b>
                         <v-text-field
                             v-model="paramVehiclePost.brand"
-                            label="Thương hiệu"
+                            placeholder="Thương hiệu"
                             outlined
+                            dense
                             name="brand"
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('brand')"
                         ></v-text-field>
 
+                        <b>Tên phương  tiện<span class="error--text"> *</span></b>
                         <v-text-field
                             v-model="paramVehiclePost.name"
-                            label="Tên phương tiện"
+                            placeholder="Tên phương tiện"
                             outlined
+                            dense
                             name="vehicle_name"
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('vehicle_name')"
@@ -46,32 +52,55 @@
                     </v-col>
 
                     <v-col>
-                        <v-text-field
-                            v-model="paramVehiclePost.color"
-                            label="Màu sắc"
-                            outlined
-                        ></v-text-field>
+                        <b>Màu sắc</b>
+                        <v-menu
+                            transition="scale-transition"
+                            offset-y
+                            :close-on-content-click="false"
+                            max-width="250"
+                            >
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                :background-color="paramVehiclePost.color"
+                                solo
+                                v-bind="attrs"
+                                v-on="on"
+                                readonly
+                                dense
+                                ></v-text-field>
+                            </template>
+                            <v-color-picker
+                                v-model="paramVehiclePost.color"
+                            >
+                            </v-color-picker>
+                        </v-menu>   
 
+                        <b>Biển  số  xe<span class="error--text"> *</span></b>
                         <v-text-field
                             v-model="paramVehiclePost.license_plate"
-                            label="Biển số xe"
+                            placeholder="Biển số xe"
                             outlined
+                            dense
                             name="license_plate"
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('license_plate')"
                         ></v-text-field>
 
-                         <v-text-field
+                        <b>Chủ sở  hữu<span class="error--text"> *</span></b>
+                        <v-text-field
                             v-model="paramVehiclePost.owner_name"
-                            label="Chủ sở hũu"
+                            placeholder="Chủ sở hũu"
                             outlined
+                            dense
                             name="owner_name"
                             v-validate="{ required: 'required'}"
                             :error-messages="errors.collect('owner_name')"
                         ></v-text-field>
                     </v-col>
                 </v-row>
-                <v-textarea label="Mô tả"
+                <b>Mô tả</b>
+                <v-textarea 
+                    placeholder="Mô tả"
                     v-model="paramVehiclePost.description"
                     outlined
                     rows="2"
@@ -134,7 +163,7 @@ export default {
     },
     data: () => ({
         indexCreateProject: 0,
-        paramVehiclePost : {},
+        paramVehiclePost : {color:''},
         vehicleType: constants.VEHICLE_TYPE,
     }),
     mounted() {

@@ -12,6 +12,10 @@
                 {{ vehicleType[item.vehicle_type].text }}
             </template>
 
+            <template v-slot:item.color="{ item }">
+                <v-badge :color="item.color"></v-badge>
+            </template>
+
             <template v-slot:item.action="{ item }">
             <v-row>
               <v-col>
