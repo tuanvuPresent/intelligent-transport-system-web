@@ -15,7 +15,7 @@
                             @click="clickItem(item)"
                             :clickable="true"
                         ></gmap-marker>
-                        <gmap-polyline v-bind:path.sync="item.position" v-bind:options="{ strokeColor:'red'}">
+                        <gmap-polyline v-bind:path.sync="item.position" v-bind:options="{ strokeColor: vehicleSelected && vehicleSelected.id === item.id? 'blue' : 'red'}">
                         </gmap-polyline>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         :position="vehicleLocaltionHistory.position[0]"
                         :clickable="true"
                     ></gmap-marker>
-                    <gmap-polyline v-bind:path.sync="vehicleLocaltionHistory.position" v-bind:options="{ strokeColor:'#008000'}">
+                    <gmap-polyline v-bind:path.sync="vehicleLocaltionHistory.position" v-bind:options="{ strokeColor:'red'}">
                     </gmap-polyline>
                 </div>
                 </gmap-map>
@@ -152,12 +152,6 @@ export default {
             tabActive: 0,
             vehicleSelectedHistory: '',
             dateSelected : new Date().toISOString().substr(0, 10),
-            path: [
-                {lat: 20.9352001, lng:  105.7766924 },
-                {lat: 20.9358131, lng: 105.7770143 },
-                {lat: 20.9361256, lng: 105.7767353 },
-                {lat: 20.9366784, lng: 105.7739458 }
-            ],
             vehicleLocaltionMinutes:[
                 {
                     text: 2,
