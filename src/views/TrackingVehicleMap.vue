@@ -11,24 +11,23 @@
                 <div v-if="tabActive === 0">
                     <div v-for="(item) in vehicleLocaltionList" :key="item.id">
                         <gmap-marker
-                            :key="index"
-                            v-for="(m, index) in item.position"
-                            :position="m"
+                            :position="item.position[0]"
                             @click="clickItem(item)"
                             :clickable="true"
-                            :title="m.title"
                         ></gmap-marker>
+                        <gmap-polyline v-bind:path.sync="item.position" v-bind:options="{ strokeColor:'red'}">
+                        </gmap-polyline>
                     </div>
                 </div>
 
+
                 <div v-if="tabActive === 1">
                     <gmap-marker
-                        :key="index"
-                        v-for="(m, index) in vehicleLocaltionHistory.position"
-                        :position="m"
+                        :position="vehicleLocaltionHistory.position[0]"
                         :clickable="true"
-                        :title="m.title"
                     ></gmap-marker>
+                    <gmap-polyline v-bind:path.sync="vehicleLocaltionHistory.position" v-bind:options="{ strokeColor:'#008000'}">
+                    </gmap-polyline>
                 </div>
                 </gmap-map>
             </v-card>
@@ -153,6 +152,12 @@ export default {
             tabActive: 0,
             vehicleSelectedHistory: '',
             dateSelected : new Date().toISOString().substr(0, 10),
+            path: [
+                {lat: 20.9352001, lng:  105.7766924 },
+                {lat: 20.9358131, lng: 105.7770143 },
+                {lat: 20.9361256, lng: 105.7767353 },
+                {lat: 20.9366784, lng: 105.7739458 }
+            ],
             vehicleLocaltionMinutes:[
                 {
                     text: 2,
