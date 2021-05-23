@@ -154,7 +154,7 @@ export default {
                     Vue.$toast.success(constants.VEHICLE_MESSAGE.CREATE_SUCCESS)
                     this.getVehicleList()
                     this.closeDialog()
-                    this.paramVehiclePost  = {}
+                    this.paramVehiclePost  = {color:''}
                 } else {
                     Vue.$toast.error(error + '')
                 }
