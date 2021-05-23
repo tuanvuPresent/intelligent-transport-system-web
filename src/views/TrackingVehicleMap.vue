@@ -1,72 +1,80 @@
 <template>
   <div>
       <v-row>
-          <v-col cols="8" style="padding:0px">
-               <v-card>
+        <v-col cols="9" style="padding:0px">
+            <v-card>
                 <gmap-map
-                :center="center"
-                :zoom="12"
-                style="width:100%;  height: 85vh;margin:auto;padding:0px"
+                    :center="center"
+                    :zoom="12"
+                    style="width:100%;  height: 85vh;margin:auto;padding:0px"
                 >
-                <div v-if="tabActive === 0">
-                    <div v-for="(item) in vehicleLocaltionList" :key="item.id">
+                    <div v-if="tabActive === 0">
+                        <div v-for="(item) in vehicleLocaltionList" :key="item.id">
+                            <gmap-marker
+                                :position="item.position[0]"
+                                @click="clickItem(item)"
+                                :clickable="true"
+                                v-bind:options="{ icon: vehicleSelected && vehicleSelected.id === item.id? 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' : 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'}"
+                            ></gmap-marker>
+                            <gmap-polyline v-bind:path.sync="item.position" v-bind:options="{ strokeColor: vehicleSelected && vehicleSelected.id === item.id? 'blue' : 'gray'}">
+                            </gmap-polyline>
+                        </div>
+                    </div>
+
+
+                    <div v-if="tabActive === 1">
                         <gmap-marker
-                            :position="item.position[0]"
-                            @click="clickItem(item)"
+                            :position="vehicleLocaltionHistory.position[0]"
                             :clickable="true"
+                            icon='http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
                         ></gmap-marker>
-                        <gmap-polyline v-bind:path.sync="item.position" v-bind:options="{ strokeColor: vehicleSelected && vehicleSelected.id === item.id? 'blue' : 'red'}">
+                        <gmap-polyline v-bind:path.sync="vehicleLocaltionHistory.position" v-bind:options="{ strokeColor:'blue'}">
                         </gmap-polyline>
                     </div>
-                </div>
-
-
-                <div v-if="tabActive === 1">
-                    <gmap-marker
-                        :position="vehicleLocaltionHistory.position[0]"
-                        :clickable="true"
-                    ></gmap-marker>
-                    <gmap-polyline v-bind:path.sync="vehicleLocaltionHistory.position" v-bind:options="{ strokeColor:'red'}">
-                    </gmap-polyline>
-                </div>
                 </gmap-map>
             </v-card>
-          </v-col>
-            <v-col class="pt-0" cols="4">
-                <v-card class="form vehicle">
-                    <v-tabs @change="changeTab($event)">
-                        <v-tab class="tab-title">
-                            <div>Theo dõi xe</div>
-                        </v-tab>
-                        <v-tab class="tab-title">
-                            <div>Lịch sử xe</div>
-                        </v-tab>
+        </v-col>
 
-                        <v-tab-item>
-                            <v-card-text v-if="isShowInfo">
-                                    <!-- <v-select
-                                        :items="vehicleLocaltionMinutes"
-                                        label="Chọn số phút"
-                                        v-model="vehicleLocaltionParams.minutes"
-                                        outlined
-                                        dense
-                                    ></v-select> -->
-                                    <div v-if="vehicleSelected">
-                                        <div><b>Loại phương tiện:</b> {{ vehicleType[vehicleSelected.vehicle_type].text }}</div>
-                                        <div><b>Thương hiệu xe:</b> {{ vehicleSelected.brand }}</div>
-                                        <div><b>Tên xe:</b> {{ vehicleSelected.name }}</div>
-                                        <div><b>Chủ sở hữu:</b> {{ vehicleSelected.owner?vehicleSelected.owner.name:"" }}</div>
-                                        <div><b>Biển số xe:</b> {{ vehicleSelected.license_plate }}</div>
-                                        <div><b>Vị trí:</b> ( latitude: {{ vehicleSelected.position[0].lat }}, longitude : {{ vehicleSelected.position[0].lng }})</div>
-                                        <div><b>Tốc độ hiện tại:</b> {{ vehicleSelected.position[0].speed }} ( km/h )</div>
-                                    </div>
+        <v-col class="pt-0" cols="3">
+            <v-card class="form vehicle">
+                <v-tabs @change="changeTab($event)" height="36">
+                    <v-tab class="tab-title">
+                        <div>Theo dõi xe</div>
+                    </v-tab>
+                    <v-tab class="tab-title">
+                        <div>Lịch sử xe</div>
+                    </v-tab>
+
+                    <v-tab-item>
+                        <v-card-text v-if="isShowInfo">
+                            <div v-if="vehicleSelected">
+                                <div><b>Loại phương tiện:</b> {{ vehicleType[vehicleSelected.vehicle_type].text }}</div>
+                                <div><b>Thương hiệu xe:</b> {{ vehicleSelected.brand }}</div>
+                                <div><b>Tên xe:</b> {{ vehicleSelected.name }}</div>
+                                <div><b>Chủ sở hữu:</b> {{ vehicleSelected.owner?vehicleSelected.owner.name:"" }}</div>
+                                <div><b>Biển số xe:</b> {{ vehicleSelected.license_plate }}</div>
+                                <div><b>Vị trí:</b> ( latitude: {{ vehicleSelected.position[0].lat }}, longitude : {{ vehicleSelected.position[0].lng }})</div>
+                                <div><b>Tốc độ hiện tại:</b> {{ vehicleSelected.position[0].speed }} ( km/h )</div>
+                            </div>
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card v-if="isShowInfo">
+                            <v-card-title>
+                                <p>Hình ảnh giao thông</p>
+                            </v-card-title>
+                            <v-card-text>
+                                <v-img src="https://thukyluat.vn/uploads/NewsThumbnail/2020/08/31/17014231-hanh-vi-bi-cam-trong-Du-thao-Luat-Bao-dam-trat-tu-ATGT-duong-bo.png"></v-img>
                             </v-card-text>
-                        </v-tab-item>
+                        </v-card>
+                    </v-tab-item>
 
-                        <v-tab-item>
-                            <v-card-text class="pa-6">
-                                <div>
+                    <v-tab-item>
+                        <v-card-text class="pa-6">
+                            <div>
                                 <v-autocomplete
+                                    placeholder="Chọn xe"
                                     v-model="vehicleSelectedHistory"
                                     :items="vehicleList"
                                     item-text="name"
@@ -75,31 +83,42 @@
                                     append-icon="mdi-chevron-down"
                                     dense
                                 ></v-autocomplete>
-                                <v-date-picker
-                                    no-title
-                                    v-model="dateSelected"
-                                    flat
-                                    full-width
+                               
+                                <v-menu
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
                                 >
-                                </v-date-picker>
-                                <v-btn class="primary" small
-                                @click="getHistoryVehicle"
-                                >Hiện lịch sử xe</v-btn>
-                                </div>
-                            </v-card-text>
-                        </v-tab-item>
-                    </v-tabs>
-                </v-card>
-
-                <v-card class="mt-2" v-if="isShowInfo">
-                    <v-card-title>
-                        <p>Hình ảnh giao thông</p>
-                    </v-card-title>
-                    <v-card-text>
-                          <v-img src="https://thukyluat.vn/uploads/NewsThumbnail/2020/08/31/17014231-hanh-vi-bi-cam-trong-Du-thao-Luat-Bao-dam-trat-tu-ATGT-duong-bo.png"></v-img>
-                    </v-card-text>
-                </v-card>
-            </v-col>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <v-text-field
+                                            v-model="dateSelected"
+                                            prepend-inner-icon="mdi-calendar"
+                                            readonly
+                                            outlined
+                                            dense
+                                            v-bind="attrs"
+                                            v-on="on"
+                                        ></v-text-field>
+                                        </template>
+                                    <v-date-picker
+                                        v-model="dateSelected"
+                                    ></v-date-picker>
+                                </v-menu>
+                            </div>
+                            <div class="d-flex justify-center">
+                                <v-btn 
+                                    class="primary"
+                                    @click="getHistoryVehicle"
+                                >
+                                   Tìm kiếm 
+                                </v-btn>
+                            </div>
+                        </v-card-text>
+                    </v-tab-item>
+                </v-tabs>
+            </v-card>
+        </v-col>
       </v-row>
   </div>
 </template>
@@ -130,8 +149,9 @@ export default {
                     params : this.vehicleLocaltionParams,
                     loading : true
                 })
+                this.setVehicleSelected({})
             } else{
-                 this.isShowInfo = false
+                this.isShowInfo = false
             }
         }
     },
@@ -184,7 +204,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .vehicle .v-tab--active {
     background: #007bff!important;
     color: aliceblue !important;
@@ -193,8 +213,6 @@ export default {
   text-transform: none !important;
   width: 50% !important;
   font-size: 12px !important;
-}
-.vehicle .v-slide-group__content {
-    height: 30px !important;
+  border-bottom: #007bff solid 1px;
 }
 </style>
