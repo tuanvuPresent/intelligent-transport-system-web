@@ -87,7 +87,9 @@
                                 <v-menu
                                     transition="scale-transition"
                                     offset-y
+                                    offset-x
                                     min-width="auto"
+                                    :nudge-left="290"
                                 >
                                     <template v-slot:activator="{ on, attrs }">
                                         <v-text-field
