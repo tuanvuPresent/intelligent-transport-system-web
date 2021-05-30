@@ -35,7 +35,7 @@
             </v-card>
         </v-col>
 
-        <v-col class="pt-0" cols="3">
+        <v-col class="pt-0">
             <v-card class="form vehicle">
                 <v-tabs @change="changeTab($event)" height="36">
                     <v-tab class="tab-title">
@@ -85,7 +85,6 @@
                                 ></v-autocomplete>
                                
                                 <v-menu
-                                    :nudge-right="40"
                                     transition="scale-transition"
                                     offset-y
                                     min-width="auto"
@@ -103,6 +102,7 @@
                                         </template>
                                     <v-date-picker
                                         v-model="dateSelected"
+                                        no-title
                                     ></v-date-picker>
                                 </v-menu>
                             </div>
