@@ -13,6 +13,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import 'vue-toast-notification/dist/theme-sugar.css';
 import '@/assets/style/styles.css';
 import * as VueGoogleMaps from 'vue2-google-maps';
+import NotificationDialog from './components/dialog/NotificationDialog';
  
 Vue.use(VeeValidate, validation);
 Vue.use(Loading);
@@ -27,6 +28,7 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places'
   }}
 )
+Vue.component('NotificationDialog', NotificationDialog)
 
 new Vue({
     vuetify,

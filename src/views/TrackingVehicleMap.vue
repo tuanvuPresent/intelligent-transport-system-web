@@ -1,6 +1,6 @@
 <template>
   <div>
-      <v-row>
+      <div class="d-flex">
         <v-col cols="9" style="padding:0px">
             <v-card>
                 <gmap-map
@@ -22,7 +22,7 @@
                     </div>
 
 
-                    <div v-if="tabActive === 1">
+                    <div v-if="tabActive === 1 && vehicleLocaltionHistory.position">
                         <gmap-marker
                             :position="vehicleLocaltionHistory.position[0]"
                             :clickable="true"
@@ -39,7 +39,7 @@
             <v-card class="form vehicle">
                 <v-tabs @change="changeTab($event)" height="36">
                     <v-tab class="tab-title">
-                        <div>Theo dõi xe</div>
+                       Theo dõi xe
                     </v-tab>
                     <v-tab class="tab-title">
                         <div>Lịch sử xe</div>
@@ -119,7 +119,7 @@
                 </v-tabs>
             </v-card>
         </v-col>
-      </v-row>
+      </div>
   </div>
 </template>
 
@@ -127,9 +127,20 @@
 import {mapGetters, mapActions} from 'vuex'
 import constants from '../constants/constants'
 export default {
+    watch: {
+        vehicleLocaltionHistory() {
+            if (this.vehicleLocaltionHistory.position.length === 0 ) {
+                this.openNotificationDialog({
+                    title: 'Thông báo',
+                    message: 'Xe này không có lịch sử ngày này'
+                })
+            }
+        }
+    },
     methods:{
         ...mapActions('trackingVehicle', ['getVehicleLocaltionList', 'setVehicleSelected', 'getHistoryVehicleLocaltion']),
         ...mapActions('vehicle', ['getVehicleList']),
+        ...mapActions('display', ['openNotificationDialog']),
         clickItem(item){
             this.setVehicleSelected(item)
             this.isShowInfo = true

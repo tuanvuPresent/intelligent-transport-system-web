@@ -1,5 +1,8 @@
 <template>
-  <router-view/>
+    <v-app class="pa-0">
+        <router-view/>
+        <NotificationDialog/>
+    </v-app>
 </template>
 
 <script>

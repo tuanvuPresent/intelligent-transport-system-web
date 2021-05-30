@@ -9,6 +9,12 @@ export default {
         createVehicleDialog: false,
         updateVehicleDialog: false,
         deleteVehicleDialog: false,
+        isShowNotificationDialog: false,
+        configNotificationDialog: {
+            title: 'Thông báo',
+            message: 'Thông báo',
+            btnSubmit: Function
+        },
     },
     getters: {
         createVehicleDialog: state => {
@@ -20,6 +26,12 @@ export default {
         deleteVehicleDialog: state => {
             return state.deleteVehicleDialog
         },
+        isShowNotificationDialog: state => {
+            return state.isShowNotificationDialog
+        },
+        configNotificationDialog: state => {
+            return state.configNotificationDialog
+        },
     },
     mutations: {
         setCreateVehicleDialog (state, value) {
@@ -30,6 +42,14 @@ export default {
         },
         setDeleteVehicleDialog (state, value) {
             state.deleteVehicleDialog = value
+        },
+        setConfigNotificationDialog (state, value = { message: '', title: '' }) {
+        for (const property in value) {
+            state.configNotificationDialog[property] = value[property]
+        }
+        },
+        setIsShowNotificationDialog (state, value) {
+            state.isShowNotificationDialog = value
         },
     },
     actions: {
@@ -52,6 +72,14 @@ export default {
         },
         closeDeleteVehicleDialog ({commit}) {
             commit('setDeleteVehicleDialog', false)
+        },
+
+        openNotificationDialog ({ commit }, config = {}) {
+            commit('setConfigNotificationDialog', config)
+            commit('setIsShowNotificationDialog', true)
+        },
+        closeNotificationDialog ({ commit }) {
+            commit('setIsShowNotificationDialog', false)
         },
     },
     modules: {}
