@@ -35,7 +35,7 @@
             </v-card>
         </v-col>
 
-        <v-col class="pt-0">
+        <v-col cols="3" class="pt-0">
             <v-card class="form vehicle">
                 <v-tabs @change="changeTab($event)" height="36">
                     <v-tab class="tab-title">
