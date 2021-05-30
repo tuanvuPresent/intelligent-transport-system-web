@@ -53,8 +53,10 @@
                                 <div><b>Tên xe:</b> {{ vehicleSelected.name }}</div>
                                 <div><b>Chủ sở hữu:</b> {{ vehicleSelected.owner?vehicleSelected.owner.name:"" }}</div>
                                 <div><b>Biển số xe:</b> {{ vehicleSelected.license_plate }}</div>
-                                <div><b>Vị trí:</b> ( latitude: {{ vehicleSelected.position[0].lat }}, longitude : {{ vehicleSelected.position[0].lng }})</div>
-                                <div><b>Tốc độ hiện tại:</b> {{ vehicleSelected.position[0].speed }} ( km/h )</div>
+                                <div><b>Vị trí:</b> </div>
+                                <div> - latitude: {{ vehicleSelected.position[0].lat }} </div>
+                                <div> - longitude : {{ vehicleSelected.position[0].lng }} </div>
+                                <div><b>Tốc độ hiện tại:</b> {{  Math.round(vehicleSelected.position[0].speed * 100) / 100 }} ( km/h )</div>
                             </div>
                         </v-card-text>
 
