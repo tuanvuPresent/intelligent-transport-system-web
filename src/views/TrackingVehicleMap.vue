@@ -166,6 +166,8 @@ export default {
                 })
                 this.setVehicleSelected({})
             } else{
+                this.dateSelected = new Date().toISOString().substr(0, 10)
+                this.vehicleLocaltionHistory = {}
                 this.isShowInfo = false
             }
         }
