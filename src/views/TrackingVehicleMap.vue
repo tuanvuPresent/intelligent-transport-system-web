@@ -133,7 +133,7 @@ import constants from '../constants/constants'
 export default {
     watch: {
         vehicleLocaltionHistory() {
-            if (this.vehicleLocaltionHistory.position.length === 0 ) {
+            if (this.vehicleLocaltionHistory.position && this.vehicleLocaltionHistory.position.length === 0 ) {
                 this.openNotificationDialog({
                     title: 'Thông báo',
                     message: 'Xe này không có lịch sử ngày này'
@@ -142,7 +142,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions('trackingVehicle', ['getVehicleLocaltionList', 'setVehicleSelected', 'getHistoryVehicleLocaltion']),
+        ...mapActions('trackingVehicle', ['getVehicleLocaltionList', 'setVehicleSelected', 'getHistoryVehicleLocaltion', 'setVehicleLocaltionHistory']),
         ...mapActions('vehicle', ['getVehicleList']),
         ...mapActions('display', ['openNotificationDialog']),
         clickItem(item){
@@ -167,7 +167,8 @@ export default {
                 this.setVehicleSelected({})
             } else{
                 this.dateSelected = new Date().toISOString().substr(0, 10)
-                this.vehicleLocaltionHistory = {}
+                this.setVehicleLocaltionHistory({})
+                this.vehicleSelectedHistory = null
                 this.isShowInfo = false
             }
         }

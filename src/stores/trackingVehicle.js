@@ -60,6 +60,9 @@ export default {
                     commit('setVehicleLocaltionHistory', response.data.data)    
                 })
         },
+        setVehicleLocaltionHistory ({commit}, value) {
+            commit('setVehicleLocaltionHistory', value)
+        },
         setVehicleSelected ({commit}, value) {
             commit('setVehicleSelected', value)
         }
