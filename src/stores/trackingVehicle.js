@@ -9,7 +9,7 @@ export default {
     state: {
         vehicleLocaltionList: [],
         vehicleSelected : null,
-        vehicleLocaltionParams : {minutes : 2},
+        vehicleLocaltionParams : {minutes : 5},
         vehicleLocaltionHistory : {}, 
     },
     getters: {
